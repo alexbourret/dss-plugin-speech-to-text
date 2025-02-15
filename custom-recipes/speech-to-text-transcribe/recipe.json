@@ -1,0 +1,42 @@
+{
+    "meta": {
+        "label": "Transcribe",
+        "description": "Turn sound files into a dataset of text transcriptions",
+        "icon": "fas fa-comment-dots"
+    },
+
+    "kind": "PYTHON",
+    "selectableFromDataset": "input_A_role",
+    "selectableFromFolder": "input_A_role",
+    "inputRoles": [
+        {
+            "name": "input_A_role",
+            "label": "Source dataset or folder",
+            "description": "Folder or dataset containing the urls or sound files to transcribe",
+            "arity": "UNARY",
+            "required": true,
+            "acceptsDataset": true,
+            "acceptsManagedFolder": true
+        }
+    ],
+
+    "outputRoles": [
+        {
+            "name": "main_output",
+            "label": "Transcription dataset",
+            "description": "Dataset where audio files' transcription will be stored",
+            "arity": "UNARY",
+            "required": false,
+            "acceptsDataset": true
+        }
+    ],
+    "params": [
+        {
+            "name": "url_column",
+            "label": "URLs column",
+            "type": "COLUMN",
+            "columnRole": "input_A_role"
+        }
+    ],
+    "resourceKeys": []
+}
