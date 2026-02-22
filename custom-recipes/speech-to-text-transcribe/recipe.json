@@ -30,7 +30,15 @@
             "acceptsDataset": true
         }
     ],
+    "paramsPythonSetup": "browse_models.py",
     "params": [
+        {
+            "name": "speech_model",
+            "label": "Select a speech model",
+            "type": "SELECT",
+            "defaultValue": "turbo",
+            "getChoicesFromPython": true
+        },
         {
             "name": "url_column",
             "label": "URLs column",
