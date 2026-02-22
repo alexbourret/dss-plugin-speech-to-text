@@ -34,11 +34,13 @@ try:
 except Exception as error_message:
     # Input is not a dataset
     # Could be a folder...
+    logger.info("The Input is not a dataset, trying to open it as a folder: ", error_message)
     input_folder = get_input_names_for_role("input_A_role")
     input_A_datasets = [dataiku.Folder(name) for name in input_A_names]
     folder_handle = input_A_datasets[0]
 
-audio_model = whisper.load_model("turbo")
+speech_model = config.get("speech_model", "turbo")
+audio_model = whisper.load_model(speech_model)
 
 if folder_handle:
     paths = folder_handle.list_paths_in_partition()
@@ -62,6 +64,7 @@ if folder_handle:
             segments = transcription.get("segments", [])
             for segment in segments:
                 speech_row = copy.deepcopy(output_row)
+                speech_row['model'] = speech_model
                 speech_row['start_time'] = segment.get("start")
                 speech_row['end_time'] = segment.get("end")
                 speech_row['sentence'] = segment.get("text")
@@ -96,6 +99,7 @@ else:
             segments = transcription.get("segments", [])
             for segment in segments:
                 speech_row = copy.deepcopy(output_row)
+                speech_row['model'] = speech_model
                 speech_row['start_time'] = segment.get("start")
                 speech_row['end_time'] = segment.get("end")
                 speech_row['sentence'] = segment.get("text")
